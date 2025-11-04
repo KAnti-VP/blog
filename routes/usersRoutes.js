@@ -113,12 +113,9 @@ export function auth(req, res, next) {
   }
   const token = accessToken.split(' ')[1]
   const data = jwt.verify(token, "secret_key")
-  const now = Math.floor(Date.now() / 1000)
-  if (data?.exp < now) {
-    return res.status(403).json({message: 'Token expired'})
-  }
   req.userId = data.id
   next()
 }
 
 export default router;
+
